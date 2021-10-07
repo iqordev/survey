@@ -59,9 +59,11 @@ function App() {
           }}
           onAfterRenderSurvey={(e) => {
             console.log('onAfterRenderSurvey', e)
+            window.ReactNativeWebView && window.ReactNativeWebView.postMessage(e.PageCount)
           }}
           onAfterRenderPage={(e) => {
             console.log('onAfterRenderPage', e)
+            window.ReactNativeWebView && window.ReactNativeWebView.postMessage(e.PageCount)
           }}
           onComplete={(e) =>
             submitResults(
