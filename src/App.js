@@ -217,18 +217,17 @@ function App() {
       ) : (
         <div>
           Something went wrong. {'\n'}
-          <span
+          <button
             style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
             onClick={() => {
               console.log('clicked')
               window.ReactNativeWebView &&
                 window.ReactNativeWebView.postMessage(0)
-
               // setsurveyJSON(jsonSample)
             }}
           >
             try again
-          </span>
+          </button>
         </div>
       )}
     </div>
