@@ -178,18 +178,11 @@ function App() {
   }, [])
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      {
-        error ? (
+    <>
+      <div className='box'>
+        {error ? (
           <p>Update app version</p>
-        ) : (
+        ) : surveyJSON ? (
           <Survey.Survey
             json={JSON.stringify(surveyJSON)}
             onStarted={(e) => {
@@ -215,26 +208,31 @@ function App() {
               )
             }
           />
-        )
-
-        // : (
-        //   <div>
-        //     There was a problem . {'\n'}
-        //     <button
-        //       style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-        //       onClick={() => {
-        //         console.log('clicked')
-        //         window.ReactNativeWebView &&
-        //           window.ReactNativeWebView.postMessage(0)
-        //         // setsurveyJSON(jsonSample)
-        //       }}
-        //     >
-        //       try again
-        //     </button>
-        //   </div>
-        // )
-      }
-    </div>
+        ) : (
+          <div class='row content'>
+            <div className='center'>
+              <span className='info'>
+                There was a problem loading the form probably due to network
+                connection. {'\n'}
+                <br />
+                Click the "try again" button to reload the form.
+              </span>
+              <button
+                style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+                onClick={() => {
+                  console.log('clicked')
+                  window.ReactNativeWebView &&
+                    window.ReactNativeWebView.postMessage(0)
+                  // setsurveyJSON(jsonSample)
+                }}
+              >
+                try again
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   )
 }
 
