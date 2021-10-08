@@ -186,50 +186,54 @@ function App() {
         alignItems: 'center',
       }}
     >
-      {error ? (
-        <p>Update app version</p>
-      ) : surveyJSON ? (
-        <Survey.Survey
-          json={JSON.stringify(surveyJSON)}
-          onStarted={(e) => {
-            console.log('survey showing', e)
-          }}
-          onAfterRenderSurvey={(e) => {
-            console.log('onAfterRenderSurvey', e)
-            window.ReactNativeWebView &&
-              window.ReactNativeWebView.postMessage(e.PageCount)
-          }}
-          onAfterRenderPage={(e) => {
-            console.log('onAfterRenderPage', e)
-            window.ReactNativeWebView &&
-              window.ReactNativeWebView.postMessage(e.PageCount)
-          }}
-          onComplete={(e) =>
-            submitResults(
-              {
-                formId: surveyData.id,
-                jsonData: JSON.stringify(e.data),
-              },
-              surveyData.token
-            )
-          }
-        />
-      ) : (
-        <div>
-          Something went wrong. {'\n'}
-          <button
-            style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-            onClick={() => {
-              console.log('clicked')
-              window.ReactNativeWebView &&
-                window.ReactNativeWebView.postMessage(0)
-              // setsurveyJSON(jsonSample)
+      {
+        error ? (
+          <p>Update app version</p>
+        ) : (
+          <Survey.Survey
+            json={JSON.stringify(surveyJSON)}
+            onStarted={(e) => {
+              console.log('survey showing', e)
             }}
-          >
-            try again
-          </button>
-        </div>
-      )}
+            onAfterRenderSurvey={(e) => {
+              console.log('onAfterRenderSurvey', e)
+              window.ReactNativeWebView &&
+                window.ReactNativeWebView.postMessage(e.PageCount)
+            }}
+            onAfterRenderPage={(e) => {
+              console.log('onAfterRenderPage', e)
+              window.ReactNativeWebView &&
+                window.ReactNativeWebView.postMessage(e.PageCount)
+            }}
+            onComplete={(e) =>
+              submitResults(
+                {
+                  formId: surveyData.id,
+                  jsonData: JSON.stringify(e.data),
+                },
+                surveyData.token
+              )
+            }
+          />
+        )
+
+        // : (
+        //   <div>
+        //     There was a problem . {'\n'}
+        //     <button
+        //       style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+        //       onClick={() => {
+        //         console.log('clicked')
+        //         window.ReactNativeWebView &&
+        //           window.ReactNativeWebView.postMessage(0)
+        //         // setsurveyJSON(jsonSample)
+        //       }}
+        //     >
+        //       try again
+        //     </button>
+        //   </div>
+        // )
+      }
     </div>
   )
 }
