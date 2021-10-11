@@ -28,7 +28,6 @@ yarn start
 
 ## 	Deployment
 Right now it is deployed on heroku(https://iqor-survey.herokuapp.com/) but you can deploy it on other site. 
-- Heroku
 - Add remote url
 ```git
 git remote add {remote-name} https://git.heroku.com/iqor-survey.git
@@ -37,3 +36,6 @@ git remote add {remote-name} https://git.heroku.com/iqor-survey.git
 ```git
 git push -f {remote-name} main
 ```
+ Heroku Account 
+ email: iqordev1@gmail.com
+ pass: G!ZooMCw$wz$
