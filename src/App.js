@@ -144,7 +144,7 @@ function App() {
   useEffect(() => {
     setTimeout(function () {
       setIsLoading(false)
-    }, 2000)
+    }, 6000)
 
     window.addEventListener('message', function (data) {
       try {
