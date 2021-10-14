@@ -142,8 +142,13 @@ function App() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    setTimeout(function () {
+      setIsLoading(false)
+    }, 2000)
+
     window.addEventListener('message', function (data) {
       try {
+        setIsLoading(false)
         // console.log(data.data);
         const postedData = JSON.parse(data.data)
         console.log(postedData)
@@ -161,6 +166,7 @@ function App() {
 
     document.addEventListener('message', function (data) {
       try {
+        setIsLoading(false)
         // console.log(data.data);
         const postedData = JSON.parse(data.data)
         console.log(postedData)
@@ -179,59 +185,63 @@ function App() {
 
   return (
     <>
-      <div className='box'>
-        {error ? (
-          <p>Update app version</p>
-        ) : surveyJSON ? (
-          <Survey.Survey
-            json={JSON.stringify(surveyJSON)}
-            onStarted={(e) => {
-              console.log('survey showing', e)
-            }}
-            onAfterRenderSurvey={(e) => {
-              console.log('onAfterRenderSurvey', e)
-              window.ReactNativeWebView &&
-                window.ReactNativeWebView.postMessage(e.PageCount)
-            }}
-            onAfterRenderPage={(e) => {
-              console.log('onAfterRenderPage', e)
-              window.ReactNativeWebView &&
-                window.ReactNativeWebView.postMessage(e.PageCount)
-            }}
-            onComplete={(e) =>
-              submitResults(
-                {
-                  formId: surveyData.id,
-                  jsonData: JSON.stringify(e.data),
-                },
-                surveyData.token
-              )
-            }
-          />
-        ) : (
-          <div class='row content'>
-            <div className='center'>
-              <span className='info'>
-                There was a problem loading the form probably due to network
-                connection. {'\n'}
-                <br />
-                Click the "try again" button to reload the form.
-              </span>
-              <button
-                style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-                onClick={() => {
-                  console.log('clicked')
-                  window.ReactNativeWebView &&
-                    window.ReactNativeWebView.postMessage(0)
-                  // setsurveyJSON(jsonSample)
-                }}
-              >
-                try again
-              </button>
+      {isLoading ? (
+        <div></div>
+      ) : (
+        <div className='box'>
+          {error ? (
+            <p>Update app version</p>
+          ) : surveyJSON ? (
+            <Survey.Survey
+              json={JSON.stringify(surveyJSON)}
+              onStarted={(e) => {
+                console.log('survey showing', e)
+              }}
+              onAfterRenderSurvey={(e) => {
+                console.log('onAfterRenderSurvey', e)
+                window.ReactNativeWebView &&
+                  window.ReactNativeWebView.postMessage(e.PageCount)
+              }}
+              onAfterRenderPage={(e) => {
+                console.log('onAfterRenderPage', e)
+                window.ReactNativeWebView &&
+                  window.ReactNativeWebView.postMessage(e.PageCount)
+              }}
+              onComplete={(e) =>
+                submitResults(
+                  {
+                    formId: surveyData.id,
+                    jsonData: JSON.stringify(e.data),
+                  },
+                  surveyData.token
+                )
+              }
+            />
+          ) : (
+            <div className='row content'>
+              <div className='center'>
+                <span className='info'>
+                  There was a problem loading the form probably due to network
+                  connection. {'\n'}
+                  <br />
+                  Click the "try again" button to reload the form.
+                </span>
+                <button
+                  style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+                  onClick={() => {
+                    console.log('clicked')
+                    window.ReactNativeWebView &&
+                      window.ReactNativeWebView.postMessage(0)
+                    // setsurveyJSON(jsonSample)
+                  }}
+                >
+                  try again
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </>
   )
 }
