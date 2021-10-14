@@ -148,7 +148,6 @@ function App() {
 
     window.addEventListener('message', function (data) {
       try {
-        setIsLoading(false)
         // console.log(data.data);
         const postedData = JSON.parse(data.data)
         console.log(postedData)
@@ -156,6 +155,8 @@ function App() {
         postedData?.token
           ? setSurveyData(postedData)
           : setsurveyJSON(postedData)
+
+        setIsLoading(false)
       } catch (error) {
         console.error(error)
         setError(error)
@@ -166,7 +167,6 @@ function App() {
 
     document.addEventListener('message', function (data) {
       try {
-        setIsLoading(false)
         // console.log(data.data);
         const postedData = JSON.parse(data.data)
         console.log(postedData)
@@ -174,6 +174,8 @@ function App() {
         postedData?.token
           ? setSurveyData(postedData)
           : setsurveyJSON(postedData)
+
+        setIsLoading(false)
       } catch (error) {
         console.error(error)
         setError(error)
