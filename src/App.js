@@ -156,7 +156,9 @@ function App() {
           ? setSurveyData(postedData)
           : setsurveyJSON(postedData)
 
-        setIsLoading(false)
+        if (!postedData) {
+          setIsLoading(false)
+        }
       } catch (error) {
         console.error(error)
         setError(error)
@@ -175,7 +177,9 @@ function App() {
           ? setSurveyData(postedData)
           : setsurveyJSON(postedData)
 
-        setIsLoading(false)
+        if (!postedData) {
+          setIsLoading(false)
+        }
       } catch (error) {
         console.error(error)
         setError(error)
